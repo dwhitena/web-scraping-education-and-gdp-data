@@ -13,10 +13,11 @@ con = lite.connect('education.db')
 cur = con.cursor()
 
 # read the weather data into a dataframe
-df = pd.read_sql_query("SELECT t1.country, t1.year, men, women, gdp \
-	FROM undata t1 \
-	INNER JOIN gdpdata t2 ON t1.country=t2.country \
-	AND t1.year=t2.year", con)
+query = ("SELECT t1.country, t1.year, men, women, gdp "
+	     "FROM undata t1 "
+	     "INNER JOIN gdpdata t2 ON t1.country=t2.country "
+	     "AND t1.year=t2.year")
+df = pd.read_sql_query(query, con)
 
 df.dropna(inplace=True)
 
@@ -74,7 +75,7 @@ X = sm.add_constant(x)
 model1 = sm.OLS(y,X).fit()
 print 'GDP Coefficient: ', model1.params[1]
 print 'Intercept: ', model1.params[0]
-print 'P-Values: ', model1.pvalues  # ??? why do these come out zero ???
+print 'P-Values: ', model1.pvalues  
 print 'R-Squared: ', model1.rsquared
 
 # To visualize this see the following plot:
