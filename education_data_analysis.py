@@ -3,6 +3,7 @@ import sqlite3 as lite
 import matplotlib.pyplot as plt
 import numpy as np
 import statsmodels.api as sm
+import seaborn as sns
 
 # ---------------------------
 # LOAD DATA
@@ -89,5 +90,11 @@ plt.plot(logsample, model1.params[0] + model1.params[1]*logsample, 'r')
 plt.draw()
 plt.savefig('model_fit.png')
 
+plt.figure()
+sns.jointplot("loggdp","women",df, kind="reg")
+plt.savefig('seaborn_female_data_model.png')
+plt.figure()
+sns.jointplot("loggdp","men",df, kind="reg")
+plt.savefig('seaborn_male_data_model.png')
 
 plt.show()
